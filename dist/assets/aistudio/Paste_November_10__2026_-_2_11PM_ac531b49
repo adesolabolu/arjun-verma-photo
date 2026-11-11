@@ -1,0 +1,518 @@
+Below is the component for your context <!DOCTYPE html><html lang="en" class="scroll-smooth"><head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Arjun Verma | Product Photographer</title>
+
+  
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons for replacements -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    /* Custom Utilities */
+    .arch-mask {
+      border-top-left-radius: 1000px;
+      border-top-right-radius: 1000px;
+    }
+    .arch-mask-bottom {
+      border-bottom-left-radius: 1000px;
+      border-bottom-right-radius: 1000px;
+    }
+    
+    .marquee-container {
+      overflow: hidden;
+      white-space: nowrap;
+      display: flex;
+    }
+    
+    .marquee-content {
+      display: flex;
+      gap: 2rem;
+      min-width: 100%;
+      animation: marquee 30s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .text-stroke {
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+      color: transparent;
+    }
+
+    /* Animation Utilities */
+    .animate-on-scroll-hidden {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .animate-on-scroll-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+<style type="text/tailwindcss">@import "tailwindcss";</style><script src="https://cdn.tailwindcss.com"></script><script>tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        'brand-dark': '#1c3b36',
+        'brand-light': '#fcf6e8',
+        'brand-accent': '#eec643', // The yellow/gold color
+        'brand-orange': '#ff5722', // The deep orange
+        'white-10': 'rgba(255, 255, 255, 0.1)',
+        'white-20': 'rgba(255, 255, 255, 0.2)',
+        'white-40': 'rgba(255, 255, 255, 0.4)',
+        'white-60': 'rgba(255, 255, 255, 0.6)',
+      },
+      fontFamily: {
+        'primary': ['Playfair Display', 'serif'],
+        'secondary': ['Inter', 'sans-serif'],
+      },
+      borderRadius: {
+        'xl': '1rem',
+        '2xl': '2rem',
+        'arch': '1000px', // Custom for the arch masks
+      },
+      animation: {
+        'spin-slow': 'spin 12s linear infinite',
+        'marquee': 'marquee 25s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        }
+      }
+    }
+  }
+}</script></head>
+
+<body id="app-root">
+  <div class="font-secondary bg-brand-dark text-white overflow-x-hidden min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-brand-dark/90 backdrop-blur-sm border-b border-white-10">
+    <nav class="flex justify-between items-center py-6 px-6 md:px-16 text-white/90">
+      <div class="flex items-center gap-2">
+        <i class="ph-fill ph-aperture text-brand-orange text-lg"></i>
+        <span class="font-primary text-xl font-medium tracking-wide">Arjun Studio</span>
+      </div>
+      <div class="hidden md:flex gap-8 text-sm font-light tracking-wider uppercase">
+        <a href="#" class="hover:text-brand-orange transition-colors duration-300">Main</a>
+        <a href="#portfolio" class="hover:text-brand-orange transition-colors duration-300">Portfolio</a>
+        <a href="#services" class="hover:text-brand-orange transition-colors duration-300">Services</a>
+        <a href="#about" class="hover:text-brand-orange transition-colors duration-300">About</a>
+        <a href="#gallery" class="hover:text-brand-orange transition-colors duration-300">Gallery</a>
+      </div>
+      <button id="mobile-menu-toggle" class="md:hidden text-white hover:text-brand-orange transition-colors duration-300 focus:outline-none">
+        <i class="ph ph-list text-2xl"></i>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-white-10 absolute left-0 right-0 top-full shadow-2xl h-screen bg-opacity-95 backdrop-blur-xl">
+      <div class="flex flex-col p-8 gap-8 text-center items-center justify-center h-3/4">
+        <a href="#" class="text-white/90 hover:text-brand-orange font-primary text-2xl transition-colors duration-300 mobile-link">Main</a>
+        <a href="#portfolio" class="text-white/90 hover:text-brand-orange font-primary text-2xl transition-colors duration-300 mobile-link">Portfolio</a>
+        <a href="#services" class="text-white/90 hover:text-brand-orange font-primary text-2xl transition-colors duration-300 mobile-link">Services</a>
+        <a href="#about" class="text-white/90 hover:text-brand-orange font-primary text-2xl transition-colors duration-300 mobile-link">About</a>
+        <a href="#gallery" class="text-white/90 hover:text-brand-orange font-primary text-2xl transition-colors duration-300 mobile-link">Gallery</a>
+      </div>
+    </div>
+  </header>
+
+  <main><section class="relative pt-32 pb-24 px-6 md:px-16 overflow-hidden">
+  <div class="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
+    
+    <!-- Left Text -->
+    <div class="md:col-span-4 flex flex-col justify-between z-10" data-animation-on-scroll="">
+      <div>
+        <h1 class="font-primary text-6xl md:text-8xl text-white leading-[1.1]">
+          Arjun <br>
+          <span class="italic text-white/90">Verma</span>
+        </h1>
+        <div class="mt-8 flex items-center gap-4">
+           <div class="h-[1px] w-12 bg-white-40"></div>
+           <p class="text-xs tracking-[0.2em] text-white-60 uppercase">Product Photographer</p>
+        </div>
+      </div>
+      
+      <div class="mt-12 md:mt-0 relative">
+        <img src="https://images.unsplash.com/photo-1516961642265-531546e84af2?auto=format&amp;fit=crop&amp;q=80&amp;w=300" alt="Camera Lens" class="w-24 h-24 object-cover rounded border border-white-20">
+        <div class="mt-4">
+           <p class="text-brand-orange font-primary italic text-lg">Elevating brands</p>
+           <p class="text-white font-primary text-xl uppercase tracking-wide">Through precision <br> imaging</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Arch Image -->
+    <div class="md:col-span-4 relative flex flex-col items-center" data-animation-on-scroll="">
+      <div class="relative w-full max-w-md aspect-[3/4]">
+         <!-- Badge -->
+         <div class="absolute -top-6 -right-6 z-20 bg-brand-accent rounded-full p-8 flex items-center justify-center animate-spin-slow shadow-lg w-32 h-32">
+            <div class="relative w-full h-full flex items-center justify-center">
+                 <div class="text-[10px] font-bold uppercase tracking-widest text-center text-black leading-tight">
+                  View <br> Projects
+                </div>
+            </div>
+         </div>
+
+         <div class="w-full h-full arch-mask overflow-hidden relative border-4 border-white-10 group">
+            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Luxury Perfume Shot" class="w-full h-full object-cover grayscale-[20%] group-hover:scale-105 transition duration-700 ease-in-out">
+         </div>
+         
+         <div class="absolute -bottom-6 bg-white rounded-full p-3 shadow-xl z-20">
+            <i class="ph-fill ph-camera text-black text-2xl"></i>
+         </div>
+      </div>
+    </div>
+
+    <!-- Right Content -->
+    <div class="md:col-span-4 flex flex-col relative z-10 pl-0 md:pl-8 h-full justify-between" data-animation-on-scroll="">
+      <div class="mb-12">
+        <p class="font-primary text-3xl text-brand-orange italic mb-4">"Lighting is the <br> paint I use"</p>
+        <div class="flex gap-4 items-end">
+          <p class="text-white-60 text-sm max-w-[200px] leading-relaxed">
+            I don't just take pictures; I craft desire. Sculpting light around products to reveal their true luxury and texture.
+          </p>
+          <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&amp;fit=crop&amp;q=80&amp;w=300" alt="Color Check" class="w-20 h-24 object-cover border border-white-20">
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <!-- Contact block -->
+        <div class="bg-brand-orange p-8 relative overflow-hidden group cursor-pointer transition-all hover:bg-[#f44336]">
+            <div class="absolute top-0 right-0 p-2 opacity-20">
+                <div class="border border-black rounded-full p-4 w-24 h-24"></div>
+            </div>
+            <p class="text-white text-xs uppercase tracking-widest mb-2">Launch a product?</p>
+            <h3 class="text-white font-primary text-2xl">BOOK <br> A SHOOT</h3>
+            <div class="absolute bottom-4 right-4 bg-black/20 p-2 rounded-full group-hover:bg-black/40 transition">
+                <i class="ph ph-arrow-up-right text-white text-xl"></i>
+            </div>
+        </div>
+
+        <!-- Latest Work Info -->
+        <div class="grid grid-cols-2 gap-4">
+            <img src="https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&amp;fit=crop&amp;q=80&amp;w=300" alt="Cosmetics Shoot" class="w-full h-32 object-cover opacity-80">
+            <div class="bg-[#1a2e28] p-4 flex flex-col justify-center border border-white-10">
+                <p class="text-white-40 text-xs uppercase mb-2">Latest Campaign</p>
+                <p class="text-white text-sm leading-tight">Forest Essentials <br> Summer '24</p>
+                <a href="#" class="text-brand-orange text-xs mt-2 hover:underline flex items-center gap-1">View Gallery <i class="ph ph-arrow-right"></i></a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative blur -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-900/40 rounded-full blur-[100px] -z-0 pointer-events-none"></div>
+</section>
+<section>
+    <div class="py-4 border-y bg-brand-light border-black/10 text-gray-800 marquee-container flex items-center">
+        <div class="marquee-content font-primary text-lg tracking-wider uppercase flex items-center gap-8">
+            <span>Macro Details</span> <i class="ph-fill ph-aperture text-brand-orange text-xs"></i>
+            <span>Set Design</span> <i class="ph-fill ph-aperture text-brand-orange text-xs"></i>
+            <span>Food &amp; Beverage</span> <i class="ph-fill ph-aperture text-brand-orange text-xs"></i>
+            <span>Luxury Goods</span> <i class="ph-fill ph-aperture text-brand-orange text-xs"></i>
+            <span>Macro Details</span> <i class="ph-fill ph-aperture text-brand-orange text-xs"></i>
+            <span>Set Design</span> <i class="ph-fill ph-aperture text-brand-orange text-xs"></i>
+            <span>Food &amp; Beverage</span> <i class="ph-fill ph-aperture text-brand-orange text-xs"></i>
+            <span>Luxury Goods</span> <i class="ph-fill ph-aperture text-brand-orange text-xs"></i>
+        </div>
+    </div>
+</section>
+<section class="bg-brand-light py-24 px-6 md:px-16 relative overflow-hidden text-brand-dark" id="about">
+    <div class="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div data-animation-on-scroll="">
+          <p class="text-brand-orange text-xs font-bold tracking-[0.2em] uppercase mb-4">Capturing Perfection</p>
+          <h2 class="font-primary text-5xl md:text-6xl text-brand-dark leading-[1.1] mb-8">
+            I turn objects into <br> icons with light <br> and shadow
+          </h2>
+          <p class="text-gray-600 mb-8 max-w-md leading-relaxed">
+            From the glint on a watch bezel to the texture of silk, I capture the details that sell. 
+            My studio is where technical mastery meets creative storytelling, ensuring your product stands out in a crowded digital marketplace.
+          </p>
+          <button class="bg-brand-accent text-brand-dark px-8 py-4 font-bold text-sm tracking-wider uppercase hover:bg-brand-orange hover:text-white transition flex items-center gap-2 rounded-sm shadow-md">
+            View Portfolio <i class="ph ph-arrow-right text-lg"></i>
+          </button>
+        </div>
+
+        <div class="relative" data-animation-on-scroll="">
+           <div class="absolute top-1/2 -left-12 -translate-y-1/2 bg-white rounded-full p-8 shadow-xl z-20 flex flex-col items-center justify-center w-32 h-32 border border-gray-100">
+              <p class="text-2xl font-bold text-brand-dark">500+</p>
+              <p class="text-[10px] text-gray-500 uppercase text-center leading-tight">Products <br> Shot</p>
+           </div>
+           
+           <div class="w-full aspect-[4/5] arch-mask overflow-hidden relative shadow-2xl">
+              <img src="https://images.unsplash.com/photo-1527011046414-4781f1f94f8c?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Product photography setup" class="w-full h-full object-cover">
+           </div>
+        </div>
+    </div>
+</section>
+<section class="bg-brand-dark py-32 px-6 md:px-16 relative" id="portfolio">
+    <div class="max-w-[1920px] mx-auto">
+        <div class="text-center mb-16 relative z-10" data-animation-on-scroll="">
+            <p class="font-primary italic text-white-40 text-2xl mb-2">01</p>
+            <h2 class="font-primary text-5xl md:text-6xl text-white">Visuals that Convert</h2>
+            <div class="mt-4 flex justify-center">
+            <div class="w-px h-16 bg-white-20"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10 items-end">
+            <!-- Item 1: Skincare -->
+            <div class="relative group" data-animation-on-scroll="">
+                <img src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&amp;fit=crop&amp;q=80&amp;w=600" alt="Luxury Serum Dark Bottle" class="w-full aspect-[3/4] object-cover group-hover:scale-105 transition duration-500 rounded-lg">
+                <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-brand-orange"></div>
+                <div class="mt-4 text-center">
+                    <p class="text-xs uppercase tracking-widest text-white-60">Skincare</p>
+                    <h3 class="text-white font-primary text-xl">Kama Ayurveda</h3>
+                </div>
+            </div>
+            
+            <!-- Item 2: Technology -->
+            <div class="relative md:-mb-16" data-animation-on-scroll="">
+                <div class="w-full aspect-square rounded-full overflow-hidden border-4 border-white-10 mb-4 shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&amp;fit=crop&amp;q=80&amp;w=600" alt="Headphones Product Shot" class="w-full h-full object-cover">
+                </div>
+                <p class="text-center text-white-60 text-sm font-primary italic">"Details make the difference between good and exceptional"</p>
+            </div>
+
+            <!-- Item 3: Beverage -->
+            <div class="relative group" data-animation-on-scroll="">
+                <div class="absolute -top-4 -right-4 w-16 h-16 bg-brand-accent z-0 rounded-tr-3xl"></div>
+                <img src="https://images.unsplash.com/photo-1597484661643-2f5fef640dd1?auto=format&amp;fit=crop&amp;q=80&amp;w=600" alt="Beverage Splash" class="w-full aspect-[3/4] object-cover relative z-10 group-hover:scale-105 transition duration-500 rounded-lg">
+                <div class="mt-4 text-center">
+                    <p class="text-xs uppercase tracking-widest text-white-60">Beverage</p>
+                    <h3 class="text-white font-primary text-xl">Raw Pressery</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-brand-light pb-24" id="services">
+    <!-- Marquee Light -->
+    <div class="py-4 border-b border-black/10 text-gray-800 marquee-container flex items-center mb-24 bg-brand-light">
+        <div class="marquee-content font-primary text-lg tracking-wider uppercase flex items-center gap-8">
+            <span>Concept Development</span> <i class="ph-fill ph-circle text-brand-dark text-[8px]"></i>
+            <span>Set Design</span> <i class="ph-fill ph-circle text-brand-dark text-[8px]"></i>
+            <span>Styling</span> <i class="ph-fill ph-circle text-brand-dark text-[8px]"></i>
+            <span>Retouching</span> <i class="ph-fill ph-circle text-brand-dark text-[8px]"></i>
+            <span>Stop Motion</span> <i class="ph-fill ph-circle text-brand-dark text-[8px]"></i>
+             <span>Concept Development</span> <i class="ph-fill ph-circle text-brand-dark text-[8px]"></i>
+            <span>Set Design</span> <i class="ph-fill ph-circle text-brand-dark text-[8px]"></i>
+            <span>Styling</span> <i class="ph-fill ph-circle text-brand-dark text-[8px]"></i>
+            <span>Retouching</span> <i class="ph-fill ph-circle text-brand-dark text-[8px]"></i>
+            <span>Stop Motion</span> <i class="ph-fill ph-circle text-brand-dark text-[8px]"></i>
+        </div>
+    </div>
+    
+    <div class="px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1920px] mx-auto">
+       <!-- Card 1 -->
+       <div class="group cursor-pointer" data-animation-on-scroll="">
+          <div class="overflow-hidden mb-6 relative rounded-t-full">
+             <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&amp;fit=crop&amp;q=80&amp;w=600" alt="E-commerce Photography" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition duration-700">
+             <div class="absolute bottom-4 left-4 bg-white px-3 py-1 text-xs font-bold tracking-widest uppercase text-brand-dark">Amazon/Flipkart</div>
+          </div>
+          <h3 class="font-primary text-2xl text-brand-dark">E-Commerce</h3>
+          <p class="text-sm text-gray-500 mt-2">Clean white background assets</p>
+       </div>
+
+       <!-- Card 2 -->
+       <div class="group cursor-pointer mt-12 md:mt-0" data-animation-on-scroll="">
+          <div class="overflow-hidden mb-6 relative arch-mask shadow-xl">
+             <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&amp;fit=crop&amp;q=80&amp;w=600" alt="Creative Styling" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition duration-700">
+             <div class="absolute bottom-4 left-4 bg-white px-3 py-1 text-xs font-bold tracking-widest uppercase text-brand-dark">Social Media</div>
+          </div>
+          <h3 class="font-primary text-2xl text-brand-dark">Creative Styling</h3>
+          <p class="text-sm text-gray-500 mt-2">Instagram &amp; Ad Campaigns</p>
+       </div>
+
+       <!-- Card 3 -->
+       <div class="group cursor-pointer" data-animation-on-scroll="">
+          <div class="overflow-hidden mb-6 relative rounded-b-full">
+             <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&amp;fit=crop&amp;q=80&amp;w=600" alt="Watch Photography" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition duration-700">
+             <div class="absolute bottom-4 left-4 bg-white px-3 py-1 text-xs font-bold tracking-widest uppercase text-brand-dark">High-End</div>
+          </div>
+          <h3 class="font-primary text-2xl text-brand-dark">Watch &amp; Jewelry</h3>
+          <p class="text-sm text-gray-500 mt-2">Macro &amp; Detailed Work</p>
+       </div>
+    </div>
+</section>
+<section class="bg-brand-light pb-24 px-6 md:px-16 relative" id="gallery">
+      <div class="flex flex-col items-center text-center mb-16" data-animation-on-scroll="">
+         <p class="text-brand-orange text-xs font-bold tracking-[0.2em] uppercase mb-4">Studio Highlights</p>
+         <h2 class="font-primary text-5xl text-brand-dark">Frames that <br> define the <br> brand</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center max-w-[1920px] mx-auto">
+         <div class="md:col-span-3" data-animation-on-scroll="">
+            <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&amp;fit=crop&amp;q=80&amp;w=500" alt="Skin Serum" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition duration-500 rounded-2xl shadow-lg">
+            <p class="text-xs uppercase tracking-widest mt-4 text-center text-gray-600">01. Geometric</p>
+         </div>
+
+         <div class="md:col-span-6 flex justify-center relative" data-animation-on-scroll="">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] border border-brand-dark/10 rounded-full animate-pulse"></div>
+            <button class="bg-brand-accent px-10 py-4 font-bold text-sm tracking-wider uppercase hover:bg-brand-orange hover:text-white transition shadow-lg z-10 rounded-sm text-brand-dark">
+               Load More Shots
+            </button>
+         </div>
+
+         <div class="md:col-span-3" data-animation-on-scroll="">
+             <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&amp;fit=crop&amp;q=80&amp;w=500" alt="Tech Gadget" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition duration-500 rounded-2xl shadow-lg">
+             <p class="text-xs uppercase tracking-widest mt-4 text-center text-gray-600">02. Minimalist</p>
+         </div>
+      </div>
+</section></main>
+
+  <footer class="bg-brand-dark pt-24 text-white relative overflow-hidden border-t border-white-10">
+    <!-- Footer Top / Testimonial Area -->
+    <div class="px-6 md:px-16 pb-24 grid grid-cols-1 md:grid-cols-3 gap-12 items-center relative z-10">
+      <div data-animation-on-scroll="">
+         <span class="text-brand-orange text-5xl font-primary leading-none">"</span>
+         <h3 class="font-primary text-3xl md:text-4xl leading-snug mt-2">
+            Showcasing products <br> in their absolute <br> <span class="text-brand-orange border-b-2 border-brand-orange">best light</span>
+         </h3>
+         
+         <div class="mt-8 bg-brand-accent p-4 inline-block text-brand-dark rounded-lg">
+            <i class="ph ph-camera text-3xl"></i>
+         </div>
+      </div>
+
+      <div class="flex justify-center relative" data-animation-on-scroll="">
+         <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-white-10 relative">
+            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&amp;fit=crop&amp;q=80&amp;w=600" alt="Arjun Profile" class="w-full h-full object-cover">
+         </div>
+         <div class="absolute bottom-0 right-0 md:right-10 bg-brand-accent rounded-full p-6 text-black font-bold text-xs uppercase tracking-widest flex flex-col items-center justify-center w-24 h-24 rotate-12 shadow-lg transform translate-y-4">
+            <span>Play</span>
+            <i class="ph-fill ph-play mt-1 text-sm"></i>
+         </div>
+      </div>
+
+      <div class="text-left md:text-right" data-animation-on-scroll="">
+          <p class="font-primary italic text-brand-orange text-lg mb-4">My Philosophy</p>
+          <h3 class="text-2xl font-light leading-relaxed">
+            I explore heritage <br> every week, defining <br> modern India.
+          </h3>
+          <a href="#" class="inline-block mt-8 border border-white/30 px-6 py-3 text-xs uppercase tracking-widest hover:bg-white hover:text-brand-dark transition-colors duration-300">
+             Read Journal
+          </a>
+      </div>
+    </div>
+
+    <!-- Footer Marquee -->
+    <div class="py-4 border-y bg-[#0f1c18] border-white-10 text-white-60 marquee-container flex items-center">
+        <div class="marquee-content font-primary text-lg tracking-wider uppercase flex items-center gap-8">
+            <!-- Repeated items for marquee effect -->
+            <span>Commercial</span> <i class="ph-fill ph-star text-brand-orange text-xs"></i>
+            <span>E-Commerce</span> <i class="ph-fill ph-star text-brand-orange text-xs"></i>
+            <span>Stop Motion</span> <i class="ph-fill ph-star text-brand-orange text-xs"></i>
+            <span>360 Product</span> <i class="ph-fill ph-star text-brand-orange text-xs"></i>
+            <span>Editorial</span> <i class="ph-fill ph-star text-brand-orange text-xs"></i>
+            <span>Commercial</span> <i class="ph-fill ph-star text-brand-orange text-xs"></i>
+            <span>E-Commerce</span> <i class="ph-fill ph-star text-brand-orange text-xs"></i>
+            <span>Stop Motion</span> <i class="ph-fill ph-star text-brand-orange text-xs"></i>
+            <span>360 Product</span> <i class="ph-fill ph-star text-brand-orange text-xs"></i>
+            <span>Editorial</span> <i class="ph-fill ph-star text-brand-orange text-xs"></i>
+        </div>
+    </div>
+
+    <!-- Main Footer Links -->
+    <div class="bg-[#142925] py-16 px-6 md:px-16">
+       <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white-10 pb-12">
+          <div>
+             <p class="text-xs font-bold text-brand-orange uppercase tracking-widest mb-6">Studio</p>
+             <div class="flex flex-wrap gap-4">
+                <div class="border border-white-20 rounded-full px-4 py-2 text-xs uppercase hover:bg-white-10 cursor-pointer transition">Mumbai</div>
+                <div class="border border-white-20 rounded-full px-4 py-2 text-xs uppercase hover:bg-white-10 cursor-pointer transition">Bangalore</div>
+                <div class="bg-white text-brand-dark rounded-full px-4 py-2 text-xs uppercase font-bold">New Delhi</div>
+             </div>
+          </div>
+
+          <div>
+             <p class="text-xs font-bold text-brand-orange uppercase tracking-widest mb-6">Socials</p>
+             <div class="flex gap-4">
+                <a href="#" class="border border-white-20 text-white rounded-full p-2 hover:bg-white-10 cursor-pointer transition"><i class="ph ph-instagram-logo text-lg"></i></a>
+                <a href="#" class="border border-white-20 text-white rounded-full p-2 hover:bg-white-10 cursor-pointer transition"><i class="ph ph-behance-logo text-lg"></i></a>
+                <a href="#" class="border border-white-20 text-white rounded-full p-2 hover:bg-white-10 cursor-pointer transition"><i class="ph ph-linkedin-logo text-lg"></i></a>
+             </div>
+          </div>
+
+          <div class="md:col-span-2">
+              <p class="text-xs font-bold text-brand-orange uppercase tracking-widest mb-6">Newsletter</p>
+              <div class="flex border-b border-white-20 pb-2">
+                 <input type="email" placeholder="Get latest design updates..." class="bg-transparent w-full outline-none text-white placeholder-white-40 font-light">
+                 <button class="text-xs font-bold uppercase hover:text-brand-orange transition">Subscribe</button>
+              </div>
+          </div>
+       </div>
+       
+       <div class="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white-40 uppercase tracking-widest">
+          <div class="flex items-center gap-2 mb-4 md:mb-0">
+             <i class="ph-fill ph-aperture text-brand-orange"></i>
+             <span class="text-white">Arjun Verma Photography</span>
+          </div>
+          <p>© 2024 Arjun Verma Studio. All rights reserved.</p>
+       </div>
+    </div>
+  </footer>
+
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Scroll Reveal Animation Logic
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-on-scroll-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('[data-animation-on-scroll]').forEach(el => {
+        el.classList.add('animate-on-scroll-hidden');
+        observer.observe(el);
+      });
+
+      // Mobile Menu Logic
+      const menuToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+      const menuIcon = menuToggle ? menuToggle.querySelector('i') : null;
+
+      if (menuToggle && mobileMenu && menuIcon) {
+        menuToggle.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          
+          if (mobileMenu.classList.contains('hidden')) {
+             menuIcon.classList.remove('ph-x');
+             menuIcon.classList.add('ph-list');
+          } else {
+             menuIcon.classList.remove('ph-list');
+             menuIcon.classList.add('ph-x');
+          }
+        });
+
+        // Close menu when clicking a link
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuIcon.classList.remove('ph-x');
+            menuIcon.classList.add('ph-list');
+          });
+        });
+      }
+    });
+  </script>
+
+
+</body></html>
